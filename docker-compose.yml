@@ -1,0 +1,29 @@
+services:
+  currency-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5433:5432"
+    networks:
+      - finance-net
+  
+  exchange-pipeline:
+    build: .
+    depends_on:
+      - currency-db
+    networks:
+      - finance-net
+
+    env_file:
+      - .env
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+networks:
+  finance-net:
+    driver: bridge
+
