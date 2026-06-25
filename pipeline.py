@@ -12,14 +12,14 @@ print("Starting the Live currency pipeleine....")
 print("waiting for 15 sec for the finace database network to stabilize...")
 time.sleep(15)
 
-#1. fetching data from a free online API
+#1. Extracting data from a free online API
 print("reaching out the internet to get live exchange rates...")
 
 url = "https://open.er-api.com/v6/latest/USD"
 response = requests.get(url)
 data = response.json()
 
-# 2. Extracting and transforming data using pandas
+# 2. Transforming data using pandas
 rates = data["rates"]
 
 # picking a few currecies to track
